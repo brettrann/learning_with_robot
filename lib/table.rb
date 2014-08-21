@@ -13,7 +13,6 @@ class Table
       @y = y
       # XXX undecided still on has_a etc relationships. cross linking until I decide
       robot.table = self
-      puts "place set robot.table to:", robot.table
       # XXX using this as success return value. bad, need better.
       @robot = robot
     end
