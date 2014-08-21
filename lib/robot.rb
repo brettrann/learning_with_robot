@@ -2,12 +2,11 @@ class Robot
   
   def initialize()
     @headings = [:north, :east, :south, :west]
-    @heading = nil
+    @heading  = nil
   end
 
   def heading(heading)
-    heading = @headings.index(heading)
-    @heading = @headings[heading] unless heading == nil
+    @heading = heading if @headings.include?(heading)
   end
 
   def rotate_right()
