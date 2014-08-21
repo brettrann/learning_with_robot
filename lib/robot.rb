@@ -1,8 +1,12 @@
+require 'Table'
 class Robot
+  # using this for interest. dislike inability to typecheck?
+  attr_accessor :table
   
   def initialize()
     @headings = [:north, :east, :south, :west]
     @heading  = nil
+    @table    = nil
   end
 
   def heading(heading)
