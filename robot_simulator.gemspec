@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = RobotSimulator::VERSION
   spec.authors       = ["Brett Rann"]
   spec.email         = ["brann@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{implementing the Robot Simulator code test}
+  spec.description   = %q{learning ruby as I go so lots of iterating}
   spec.homepage      = ""
   spec.license       = "MIT"
 
