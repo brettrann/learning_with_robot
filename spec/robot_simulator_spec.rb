@@ -73,95 +73,32 @@ describe "Robot Simulator" do
     end
   end
 
-  describe 'move the robot' do
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,NORTH")).to equal nil
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,3,NORTH$/
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,4,NORTH$/
-    end
-    it 'when moving the robot forward from edge' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position from edge' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,4,NORTH$/
-    end
-
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,EAST")).to equal nil
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^3,2,EAST$/
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^4,2,EAST$/
-    end
-    it 'when moving the robot forward from edge' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position from edge' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^4,2,EAST$/
-    end
-
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,SOUTH")).to equal nil
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,1,SOUTH$/
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,0,SOUTH$/
-    end
-    it 'when moving the robot forward from edge' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position from edge' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,0,SOUTH$/
-    end
-
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,WEST")).to equal nil
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^1,2,WEST$/
-    end
-    it 'when moving the robot forward' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^0,2,WEST$/
-    end
-    it 'when moving the robot forward from edge' do
-      expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-    end
-    it 'when reporting the position from edge' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^0,2,WEST$/
+  # XXX unsure of best practise for tests, whether 'complex' loops like this
+  # are worth while, or explicit tests for readability are better.
+  # explicit is 4 sets of place/report it/end blocks and 8 sets move/report it/end blocks.
+  # so 36 lines of code.
+  describe 'try to move past edge' do
+    input = ['NORTH', 'EAST', 'SOUTH', 'WEST']
+    input.each do |heading|
+      it 'when placing the robot' do
+        expect(RobotSimulator.execute("PLACE", "2,2,#{heading}")).to equal nil
+      end
+      output = ( heading =~ /^[N|E]/ ? [3, 4, 4] : [1, 0, 0] )
+      #output = [4, 5, 5]
+      output.each do |coordinate|
+        it 'when moving the robot forward' do
+          expect(RobotSimulator.execute("MOVE", nil)).to equal nil
+        end
+        it 'when reporting the position' do
+          expect(RobotSimulator.execute('REPORT', nil)).to match(
+            heading =~ /^[N|S]/ ?
+            /^2,#{coordinate},#{heading}$/ :
+            /^#{coordinate},2,#{heading}$/ )
+        end
+      end
     end
   end
+
 =begin silence this for now
   describe 'execute argument count'
       ## TODO find out how to have a default value for 2nd argument so can only provide 1
@@ -169,4 +106,5 @@ describe "Robot Simulator" do
       expect(RobotSimulator.execute('BLAH')).to equal(nil)
     end
 =end
+
 end
