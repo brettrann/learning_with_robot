@@ -1,6 +1,5 @@
 require 'spec_helper'
-# XXX this below require doesn't seem necessary in online examples. config missing?
-require './lib/robot.rb'
+require 'Robot'
 
 describe "Robot object" do
 
