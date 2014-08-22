@@ -1,5 +1,5 @@
 class Robot
-  attr_reader   :heading
+  attr_reader   :heading, :Headings
 
   Headings = [:north, :east, :south, :west]
 

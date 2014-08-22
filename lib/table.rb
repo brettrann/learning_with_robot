@@ -1,7 +1,7 @@
 require 'Robot'
 class Table
 
-  attr_reader :x, :y
+  attr_reader :x, :y, :robot
 
   def initialize(max_x = 5, max_y = 5)
     @max_x, @max_y   = max_x, max_y

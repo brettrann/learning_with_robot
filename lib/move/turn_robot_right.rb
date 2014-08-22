@@ -1,16 +1,16 @@
-require 'Robot'
+require 'Move'
 
-class TurnRobotLeft < Move
+class TurnRobotRight < Move
 
   attr_reader :regexp
 
   def initialize(args)
-    @regexp = /^LEFT$/i
+    @regexp = /^RIGHT$/i
     super(args)
   end
 
   def execute(command)
-    @robot.rotate_left()
+    @robot.rotate_right()
   end
 
 end
