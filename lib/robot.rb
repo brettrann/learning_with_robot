@@ -8,7 +8,7 @@ class Robot
   end
 
   def heading=(heading)
-    @heading = heading if @@headings.include?(heading)
+    @heading = heading if valid_heading(heading)
   end
 
   def rotate_right()
@@ -17,5 +17,9 @@ class Robot
 
   def rotate_left()
     @heading = @@headings[ (@@headings.index(@heading) - 1) ] if @heading
+  end
+
+  def valid_heading(heading)
+   return @@headings.include?(heading)
   end
 end

@@ -27,6 +27,11 @@ describe 'Simulator object' do
     expect(@simulator.execute('REPORT'         )).to equal(nil)
   end
 
+  it 'place robot on table with invalid heading' do
+    expect(@simulator.execute('PLACE 5,5,NORTHWEST')).to equal(nil)
+    expect(@simulator.execute('REPORT'             )).to equal(nil)
+  end
+
   it 'rotate robot' do
     expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
     expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
