@@ -57,6 +57,8 @@ EOS
     end
   end
 
+  private
+
   def parse_line(line)
     command, args = line.downcase.match(/^(\w+)(?:\s+(.*))?$/).captures
   end
