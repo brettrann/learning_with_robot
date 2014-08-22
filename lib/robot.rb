@@ -1,4 +1,3 @@
-require 'Table'
 class Robot
   attr_reader   :heading
   
