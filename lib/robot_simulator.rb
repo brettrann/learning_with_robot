@@ -3,7 +3,7 @@ require 'Robot'
 require 'Table'
 
 class RobotSimulator
-  
+
   def initialize()
     @robot = Robot.new()
     @table = Table.new()
@@ -63,9 +63,9 @@ EOS
   if __FILE__ == $0
     simulator = RobotSimulator.new()
     puts 'shall we play a game?'
-    while line = STDIN.gets do
+    while line = STDIN.gets.chomp do
+      next if line.length == 0
       break if line =~ /^exit/
-      next if line.chomp.length == 0
       res = simulator.execute(line)
       puts res if res =~ /^(?:^\d+,\d+,\w+|PLACE)/
     end

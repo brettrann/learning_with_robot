@@ -1,6 +1,6 @@
 class Robot
   attr_reader   :heading
-  
+
   @@headings = [:north, :east, :south, :west]
 
   def initialize()
