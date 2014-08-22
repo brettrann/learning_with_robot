@@ -48,6 +48,17 @@ class RobotSimulator
         res = @table.place(@robot, x, y)
         @robot.heading = heading.to_sym if res
         return res
+
+      when 'help'
+        return <<EOS
+Commands:
+Place X,Y,[NORTH|EAST|SOUTH|WEST]
+MOVE
+LEFT
+RIGHT
+REPORT
+EXIT
+EOS
     end
   end
 
@@ -56,4 +67,13 @@ class RobotSimulator
     @command, @args = line.downcase.match(/^(\w+)(?:\s+(.*))?$/).captures
   end
 
+  if __FILE__ == $0
+    simulator = RobotSimulator.new()
+    puts 'shall we play a game?'
+    while line = STDIN.gets do
+      break if line =~ /^exit/
+      res = simulator.execute(line)
+      puts res if res =~ /(?:^\d+,\d+,\w+|Commands:)$/
+    end
+  end
 end
