@@ -5,6 +5,7 @@ require 'Move/turn_robot_right'
 require 'Move/place_robot'
 require 'Move/move_robot'
 require 'Move/report'
+require 'Move/help'
 require 'Robot'
 require 'Table'
 
@@ -12,16 +13,12 @@ describe 'Controller object' do
 
   before :each do
     @controller = Controller.new
-    right = TurnRobotRight.new(controller:@controller)
-    place = PlaceRobot.new(controller:@controller)
-    move = MoveRobot.new(controller:@controller)
-    left = TurnRobotLeft.new(controller:@controller)
-    report = Report.new(controller:@controller)
-    #@controller.register_move(left)
-    #@controller.register_move(right)
-    #@controller.register_move(place)
-    #@controller.register_move(move)
-    #@controller.register_move(report)
+    right       = TurnRobotRight.new controller: @controller
+    place       = PlaceRobot.new     controller: @controller
+    move        = MoveRobot.new      controller: @controller
+    left        = TurnRobotLeft.new  controller: @controller
+    report      = Report.new         controller: @controller
+    help        = Help.new           controller: @controller
   end
 
   it 'create a new controller using explicits' do
