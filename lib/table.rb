@@ -12,13 +12,14 @@ class Table
 
   def place(robot, x, y)
     if robot.is_a?(Robot) && in_range(x, y)
-      @x = x
-      @y = y
+      @x, @y = x, y
       # XXX using this as success return value. bad, need better.
       @robot = robot
     end
   end
 
+  # XXX these are returning x even when the if fails.
+  # so checking for that in test,but it is strange.
   def x=(x)
     @x = x if self.in_range(x, @y)
   end
