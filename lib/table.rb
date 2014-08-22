@@ -19,11 +19,11 @@ class Table
   # XXX these are returning x even when the if fails.
   # so checking for that in test,but it is strange.
   def x=(x)
-    @x = x if self.in_range(x, @y)
+    @x = x if in_range(x, @y)
   end
 
   def y=(y)
-    @y = y  if self.in_range(@x, y)
+    @y = y  if in_range(@x, y)
   end
 
   def in_range(x, y)
