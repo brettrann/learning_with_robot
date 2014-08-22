@@ -21,6 +21,14 @@ class Table
     end
   end
 
+  def x=(x)
+    @x = x if self.in_range(x, @y)
+  end
+
+  def y=(y)
+    @y = y  if self.in_range(@x, y)
+  end
+
   def in_range(x, y)
     x >= 0 && x < @max_x && y >= 0 && y < @max_x
   end
