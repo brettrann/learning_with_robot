@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'robot_simulator'
 
 describe 'Simulator object' do
-  
+
   @simulator
   before :each do
     @simulator = RobotSimulator.new()
@@ -75,5 +75,4 @@ describe 'Simulator object' do
     expect(@simulator.execute('MOVE'           )).to equal -1
     expect(@simulator.execute('REPORT'         )).to eq('4,0,SOUTH')
   end
-
 end

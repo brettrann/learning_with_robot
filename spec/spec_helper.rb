@@ -18,7 +18,8 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  
-  # turn off random since we are testing procedural commands
+
+  # XXX TODO turn off random since we are testing procedural commands
+  # investigate options for conditional procedural commands
   #config.order = 'random'
 end
