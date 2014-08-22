@@ -11,8 +11,8 @@ describe 'Move object' do
       table = Table.new
       robot = Robot.new
       expect(robot.heading = :north).to eq :north
-      left = Move::TurnRobotLeft.new(robot: robot, table: table)
-      expect(left.execute()).to eq :west
+      left = TurnRobotLeft.new(robot: robot, table: table)
+      expect(left.execute('LEFT')).to eq :west
     end
 
 end

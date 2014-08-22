@@ -10,16 +10,19 @@ class Controller
     @moves = {}
   end
 
-  def execute(command, arguments=nil)
+  def execute(command)
     for regexp in @moves.keys
-      return @moves[regexp].execute(arguments) if command.match(regexp)
+      return @moves[regexp].execute(command) if command.match(regexp)
     end
     return nil
   end
 
   def register_move(move)
-    # XXX WTF? undefined method 'is_a' for #<TurnRobotLeft:8xx9x9x80etc> wtf?
-    #return nil unless move.is_a Move
+    return unless move.is_a?(Move)
+    move.robot = @robot
+    move.table = @table
+    if move.is_a?(TurnRobotLeft)
+    end
     @moves[move.regexp] = move
   end
 

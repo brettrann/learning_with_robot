@@ -1,6 +1,10 @@
 require 'Controller'
 require 'Move'
 require 'Move/turn_robot_left'
+require 'Move/turn_robot_right'
+require 'Move/place_robot'
+require 'Move/move_robot'
+require 'Move/report'
 require 'Robot'
 require 'Table'
 
@@ -8,6 +12,16 @@ describe 'Controller object' do
 
   before :each do
     @controller = Controller.new
+    right = TurnRobotRight.new(controller:@controller)
+    place = PlaceRobot.new(controller:@controller)
+    move = MoveRobot.new(controller:@controller)
+    left = TurnRobotLeft.new(controller:@controller)
+    report = Report.new(controller:@controller)
+    #@controller.register_move(left)
+    #@controller.register_move(right)
+    #@controller.register_move(place)
+    #@controller.register_move(move)
+    #@controller.register_move(report)
   end
 
   it 'create a new controller using explicits' do
@@ -17,19 +31,6 @@ describe 'Controller object' do
     expect(controller.table).to be table
     expect(controller.robot).to be robot
   end
-
-  it 'execute command' do
-    robot = Robot.new()
-    table = Table.new()
-    robot.heading = :north
-    controller = Controller.new(robot: robot, table:table)
-    left = TurnRobotLeft.new(robot: robot, table:table)
-    expect(controller.register_move(left)).to eq left
-    expect(controller.execute('LEFT')).to eq :west
-    expect(controller.execute('foo')).to eq nil # no commands yet!
-    expect(controller.execute('foo', 'bar')).to eq nil # no commands yet!
-  end
-
 
   it 'ignore command when robot not placed' do
     expect(@controller.execute('MOVE'  )).to equal(nil)
