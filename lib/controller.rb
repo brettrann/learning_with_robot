@@ -10,7 +10,6 @@ class Controller
   end
 
   def execute(command, arguments=nil)
-    # no commands yet so we just say yay!
   end
 
 end
