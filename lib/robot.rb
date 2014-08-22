@@ -1,7 +1,7 @@
 class Robot
   attr_reader   :heading
 
-  @@headings = [:north, :east, :south, :west]
+  Headings = [:north, :east, :south, :west]
 
   def initialize()
     @heading  = nil
@@ -12,14 +12,14 @@ class Robot
   end
 
   def rotate_right()
-    @heading = @@headings[ (@@headings.index(@heading)+ 2) % 4 - 1 ] if @heading
+    @heading = Headings[ (Headings.index(@heading)+ 2) % 4 - 1 ] if @heading
   end
 
   def rotate_left()
-    @heading = @@headings[ (@@headings.index(@heading) - 1) ] if @heading
+    @heading = Headings[ (Headings.index(@heading) - 1) ] if @heading
   end
 
   def valid_heading(heading)
-   return @@headings.include?(heading)
+   return Headings.include?(heading)
   end
 end
