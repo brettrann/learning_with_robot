@@ -1,110 +1,79 @@
 require 'spec_helper'
+#XXX todo why is require 'RobotSimulator'  not working but it works for say require 'Robot'
+# maybe require is doing some clever stuff with converting between cap styles...
+require 'robot_simulator'
 
-describe "Robot Simulator" do
-
-  RobotSimulator.init()
-
-  describe 'place and report:' do
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "1,1,NORTH")).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^1,1,NORTH$/
-    end
+describe 'Simulator object' do
+  
+  @simulator
+  before :each do
+    @simulator = RobotSimulator.new()
   end
 
-  describe 'rotate right' do
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,NORTH")).to equal nil
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("RIGHT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,EAST$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("RIGHT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,SOUTH$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("RIGHT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,WEST$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("RIGHT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,NORTH$/
-    end
+  it 'ignore command when robot not placed' do
+    expect(@simulator.execute('MOVE'  )).to equal(nil)
+    expect(@simulator.execute('RIGHT' )).to equal(nil)
+    expect(@simulator.execute('LEFT'  )).to equal(nil)
+    expect(@simulator.execute('REPORT')).to equal(nil)
   end
 
-  describe 'rotate left' do
-    it 'when placing the robot' do
-      expect(RobotSimulator.execute("PLACE", "2,2,NORTH")).to equal nil
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("LEFT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,WEST$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("LEFT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,SOUTH$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("LEFT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,EAST$/
-    end
-    it 'when rotating the robot' do
-      expect(RobotSimulator.execute("LEFT", nil)).to equal nil
-    end
-    it 'when reporting the position' do
-      expect(RobotSimulator.execute('REPORT', nil)).to match /^2,2,NORTH$/
-    end
+  it 'place robot on table' do
+    expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
   end
 
-  # XXX unsure of best practise for tests, whether 'complex' loops like this
-  # are worth while, or explicit tests for readability are better.
-  # explicit is 4 sets of place/report it/end blocks and 8 sets move/report it/end blocks.
-  # so 36 lines of code.
-  describe 'try to move past edge' do
-    input = ['NORTH', 'EAST', 'SOUTH', 'WEST']
-    input.each do |heading|
-      it 'when placing the robot' do
-        expect(RobotSimulator.execute("PLACE", "2,2,#{heading}")).to equal nil
-      end
-      output = ( heading =~ /^[N|E]/ ? [3, 4, 4] : [1, 0, 0] )
-      #output = [4, 5, 5]
-      output.each do |coordinate|
-        it 'when moving the robot forward' do
-          expect(RobotSimulator.execute("MOVE", nil)).to equal nil
-        end
-        it 'when reporting the position' do
-          expect(RobotSimulator.execute('REPORT', nil)).to match(
-            heading =~ /^[N|S]/ ?
-            /^2,#{coordinate},#{heading}$/ :
-            /^#{coordinate},2,#{heading}$/ )
-        end
-      end
-    end
+  it 'place robot on table with invalid coordinates' do
+    expect(@simulator.execute('PLACE 5,5,NORTH')).to equal(nil)
+    expect(@simulator.execute('REPORT'         )).to equal(nil)
   end
 
-=begin silence this for now
-  describe 'execute argument count'
-      ## TODO find out how to have a default value for 2nd argument so can only provide 1
-    it 'when calling execute with single argument' do
-      expect(RobotSimulator.execute('BLAH')).to equal(nil)
+  it 'rotate robot' do
+    expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
+    expect(@simulator.execute('LEFT')           ).to equal(:west)
+    expect(@simulator.execute('RIGHT')          ).to equal(:north)
+  end
+
+  it 'move robot' do
+    expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
+    expect(@simulator.execute('MOVE'           )).to equal 3
+    expect(@simulator.execute('REPORT'         )).to eq('2,3,NORTH')
+  end
+
+  it 'check table bounds' do
+    expect(@simulator.execute('PLACE 0,0,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('0,0,NORTH')
+    expect(@simulator.execute('LEFT'           )).to equal :west
+    # boundary move
+    expect(@simulator.execute('MOVE'           )).to equal -1
+    expect(@simulator.execute('REPORT'         )).to eq('0,0,WEST')
+    expect(@simulator.execute('RIGHT'           )).to equal :north
+    for i in 1..4 do
+      expect(@simulator.execute('MOVE'           )).to equal i
     end
-=end
+    # boundary move
+    expect(@simulator.execute('REPORT'         )).to eq('0,4,NORTH')
+    expect(@simulator.execute('MOVE'           )).to equal 5
+    expect(@simulator.execute('REPORT'         )).to eq('0,4,NORTH')
+
+    expect(@simulator.execute('RIGHT'           )).to equal :east
+    for i in 1..4 do
+      expect(@simulator.execute('MOVE'           )).to equal i
+    end
+    #boundary move
+    expect(@simulator.execute('REPORT'         )).to eq('4,4,EAST')
+    expect(@simulator.execute('MOVE'           )).to equal 5
+    expect(@simulator.execute('REPORT'         )).to eq('4,4,EAST')
+
+    expect(@simulator.execute('RIGHT'           )).to equal :south
+    for i in [3, 2, 1, 0] do
+      expect(@simulator.execute('MOVE'           )).to equal i
+    end
+    #boundary move
+    expect(@simulator.execute('REPORT'         )).to eq('4,0,SOUTH')
+    expect(@simulator.execute('MOVE'           )).to equal -1
+    expect(@simulator.execute('REPORT'         )).to eq('4,0,SOUTH')
+  end
 
 end
