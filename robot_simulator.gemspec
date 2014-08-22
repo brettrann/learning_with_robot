@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "robot_simulator"
   spec.version       = RobotSimulator::VERSION
   spec.authors       = ["Brett Rann"]
-  spec.email         = ["brann@gmail.com"]
+  spec.email         = ["brettrann@gmail.com"]
   spec.summary       = %q{implementing the Robot Simulator code test}
   spec.description   = %q{learning ruby as I go so lots of iterating}
-  spec.homepage      = ""
+  spec.homepage      = "http://github.com/brann/learning_with_robot"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
