@@ -40,6 +40,7 @@ class RobotSimulator
 
       when 'place'
         x, y, heading = args.split(/,/)
+        return unless @robot.valid_heading(heading.to_sym)
         res = @table.place(@robot, x.to_i, y.to_i)
         @robot.heading = heading.to_sym if res
         return res
