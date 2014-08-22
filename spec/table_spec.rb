@@ -29,4 +29,18 @@ describe "Table object" do
     expect(@table.place(@robot, 100,  99)).to equal nil
     expect(@table.place(@robot, 100, 100)).to equal nil
   end
+
+  it 'when setting x or y' do
+    expect(@table.place(@robot, 0, 0)).to equal @robot
+    expect(@table.x                  ).to equal 0
+    expect(@table.y                  ).to equal 0
+    expect(@table.x = 2              ).to equal 2
+    expect(@table.x                  ).to equal 2
+    expect(@table.x = 5              ).to equal 5
+    expect(@table.x                  ).to equal 2
+    expect(@table.y = 2              ).to equal 2
+    expect(@table.y                  ).to equal 2
+    expect(@table.y = 5              ).to equal 5
+    expect(@table.y                  ).to equal 2
+  end
 end
