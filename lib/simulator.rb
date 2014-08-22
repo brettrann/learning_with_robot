@@ -22,10 +22,12 @@ class Simulator
         return unless @robot.table
       when 'report'
         return unless @robot.table
+        x, y, heading = @table.x, @table.y, @robot.heading
+        return "#{x},#{y},#{heading}".upcase
       when 'place'
         x, y, heading = @args.split(/,/)
         x, y = x.to_i, y.to_i
-        @robot.heading(heading.to_sym)
+        @robot.heading = heading.to_sym
         @table.place(@robot, x, y)
     end
   end

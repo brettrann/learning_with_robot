@@ -17,10 +17,12 @@ describe 'Simulator object' do
 
   it 'place robot on table' do
     expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
   end
 
   it 'rotate robot' do
     expect(@simulator.execute('PLACE 2,2,NORTH')).to be_a(Robot)
+    expect(@simulator.execute('REPORT'         )).to eq('2,2,NORTH')
     expect(@simulator.execute('LEFT')).to equal(:west)
     expect(@simulator.execute('RIGHT')).to equal(:north)
   end
