@@ -65,6 +65,7 @@ EOS
     puts 'shall we play a game?'
     while line = STDIN.gets do
       break if line =~ /^exit/
+      next if line.chomp.length == 0
       res = simulator.execute(line)
       puts res if res =~ /^(?:^\d+,\d+,\w+|PLACE)/
     end
