@@ -10,16 +10,22 @@ describe "Robot object" do
   end
 
   it 'when setting the heading' do
-    expect(@robot.heading(:north)).to equal :north
-    expect(@robot.heading(:east )).to equal :east
-    expect(@robot.heading(:south)).to equal :south
-    expect(@robot.heading(:west )).to equal :west
-    expect(@robot.heading(:oops )).to equal nil
+    @robot.heading = :north
+    expect(@robot.heading).to equal :north
+    @robot.heading = :east
+    expect(@robot.heading).to equal :east
+    @robot.heading = :south
+    expect(@robot.heading).to equal :south
+    @robot.heading = :west
+    expect(@robot.heading).to equal :west
+    @robot.heading = :oops
+    expect(@robot.heading).to equal :west
   end
 
   it 'when rotating right' do
     expect(@robot.rotate_right()).to equal nil
-    expect(@robot.heading(:north)).to equal :north
+    @robot.heading = :north
+    expect(@robot.heading       ).to equal :north
     expect(@robot.rotate_right()).to equal :east
     expect(@robot.rotate_right()).to equal :south
     expect(@robot.rotate_right()).to equal :west
@@ -28,7 +34,8 @@ describe "Robot object" do
 
   it 'when rotating left' do
     expect(@robot.rotate_left()).to equal nil
-    expect(@robot.heading(:north)).to equal :north
+    @robot.heading = :north
+    expect(@robot.heading      ).to equal :north
     expect(@robot.rotate_left()).to equal :west
     expect(@robot.rotate_left()).to equal :south
     expect(@robot.rotate_left()).to equal :east
