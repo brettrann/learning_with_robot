@@ -12,7 +12,7 @@ class RobotSimulator
   def execute(line)
     command, args = parse_line(line)
 
-    return unless @robot.table || command =~ /^(?:place|help)$/
+    return unless @robot.heading || command =~ /^(?:place|help)$/
 
     case command
 

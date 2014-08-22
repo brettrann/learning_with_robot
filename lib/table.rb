@@ -14,8 +14,6 @@ class Table
     if robot.is_a?(Robot) && in_range(x, y)
       @x = x
       @y = y
-      # XXX undecided still on has_a etc relationships. cross linking until I decide
-      robot.table = self
       # XXX using this as success return value. bad, need better.
       @robot = robot
     end

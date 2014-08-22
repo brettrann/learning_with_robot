@@ -41,8 +41,4 @@ describe "Robot object" do
     expect(@robot.rotate_left()).to equal :north
   end
 
-  it 'when assigning a table' do
-    expect(@robot.table = Table.new()).to be_a Table
-    expect(@robot.table).to be_a Table
-  end
 end
