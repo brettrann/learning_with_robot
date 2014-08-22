@@ -13,18 +13,16 @@ class RobotSimulator
   def execute(line)
     @command, @args = parse_line(line)
 
+    return unless @robot.table || @command =~ /^(?:place|help)$/
     case @command
 
       when 'right'
-        return unless @robot.table
         @robot.rotate_right()
 
       when 'left'
-        return unless @robot.table
         @robot.rotate_left()
 
       when 'move'
-        return unless @robot.table
         # check bounds. might be useful to have a coord obj
         case @robot.heading
           when :north
@@ -38,7 +36,6 @@ class RobotSimulator
           end
 
       when 'report'
-        return unless @robot.heading
         x, y, heading = @table.x, @table.y, @robot.heading
         return "#{x},#{y},#{heading}".upcase
 
