@@ -20,6 +20,7 @@ describe 'Controller object' do
 
   it 'execute command' do
     controller = Controller.new
+    expect(controller.execute('foo')).to eq nil # no commands yet!
     expect(controller.execute('foo', 'bar')).to eq nil # no commands yet!
 
   end
