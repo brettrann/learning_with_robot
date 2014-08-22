@@ -5,16 +5,16 @@ require 'Table'
 class RobotSimulator
   
   def initialize()
-    @command = @args = nil
     @robot = Robot.new()
     @table = Table.new()
   end
 
   def execute(line)
-    @command, @args = parse_line(line)
+    command, args = parse_line(line)
 
-    return unless @robot.table || @command =~ /^(?:place|help)$/
-    case @command
+    return unless @robot.table || command =~ /^(?:place|help)$/
+
+    case command
 
       when 'right'
         @robot.rotate_right()
@@ -23,7 +23,6 @@ class RobotSimulator
         @robot.rotate_left()
 
       when 'move'
-        # check bounds. might be useful to have a coord obj
         case @robot.heading
           when :north
             @table.y = @table.y+1
@@ -40,16 +39,14 @@ class RobotSimulator
         return "#{x},#{y},#{heading}".upcase
 
       when 'place'
-        x, y, heading = @args.split(/,/)
-        x, y = x.to_i, y.to_i
-        res = @table.place(@robot, x, y)
+        x, y, heading = args.split(/,/)
+        res = @table.place(@robot, x.to_i, y.to_i)
         @robot.heading = heading.to_sym if res
         return res
 
       when 'help'
         return <<EOS
-Commands:
-Place X,Y,[NORTH|EAST|SOUTH|WEST]
+PLACE X,Y,[NORTH|EAST|SOUTH|WEST]
 MOVE
 LEFT
 RIGHT
@@ -60,8 +57,7 @@ EOS
   end
 
   def parse_line(line)
-    # intending to create command objcts later so hack hack
-    @command, @args = line.downcase.match(/^(\w+)(?:\s+(.*))?$/).captures
+    command, args = line.downcase.match(/^(\w+)(?:\s+(.*))?$/).captures
   end
 
   if __FILE__ == $0
@@ -70,7 +66,7 @@ EOS
     while line = STDIN.gets do
       break if line =~ /^exit/
       res = simulator.execute(line)
-      puts res if res =~ /(?:^\d+,\d+,\w+|Commands:)$/
+      puts res if res =~ /^(?:^\d+,\d+,\w+|PLACE)/
     end
   end
 end
