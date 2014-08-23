@@ -3,15 +3,9 @@ require 'Move'
 
 class MoveRobot < Move
 
-  attr_reader :regexp
-
-  def initialize(args)
-    @regexp = /^MOVE$/i
-    super(args)
-  end
+  Regexp = /^MOVE$/i
 
   def execute(command)
-
     # TODO test this line
     return unless is_active()
 
@@ -25,5 +19,9 @@ class MoveRobot < Move
       when :west
         @table.x = @table.x-1
       end
+  end
+
+  def regexp()
+    return Regexp
   end
 end

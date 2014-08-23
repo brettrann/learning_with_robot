@@ -5,8 +5,10 @@ require 'Robot'
 
 describe 'Move object' do
 
-    # not sure yet how to test abstract classes...
-
+    it 'tests move abstract class' do
+      move = Move.new
+      expect{move.execute('irrelevant command')}.to raise_error NotImplementedError
+    end
     it 'tests move left' do
       table = Table.new
       robot = Robot.new
