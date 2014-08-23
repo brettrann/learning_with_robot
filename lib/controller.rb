@@ -6,8 +6,7 @@ class Controller
   attr_accessor :table, :robot
 
   def initialize(robot: Robot.new, table: Table.new)
-    @robot, @table = robot, table
-    @moves = {}
+    @robot, @table, @moves = robot, table, {}
   end
 
   def execute(command)
@@ -18,12 +17,8 @@ class Controller
   end
 
   def register_move(move)
-    return unless move.is_a?(Move)
-    move.robot = @robot
-    move.table = @table
-    if move.is_a?(TurnRobotLeft)
-    end
-    @moves[move.regexp] = move
+    move.robot, move.table = @robot, @table
+    @moves[move.class::Regexp] = move if move.class::Regexp.is_a?(Regexp)
   end
 
 end
