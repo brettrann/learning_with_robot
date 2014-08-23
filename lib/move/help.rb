@@ -2,12 +2,7 @@ require 'Robot'
 
 class Help < Move
 
-  attr_reader :regexp
-
-  def initialize(args)
-    @regexp = /^HELP$/i
-    super(args)
-  end
+  Regexp = /^HELP$/i
 
   def execute(command)
     return <<EOS
