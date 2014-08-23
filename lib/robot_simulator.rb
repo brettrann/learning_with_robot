@@ -1,67 +1,32 @@
 require "robot_simulator/version"
 require 'Robot'
 require 'Table'
+require 'Controller'
+require 'Move'
+require 'Move/turn_robot_left'
+require 'Move/turn_robot_right'
+require 'Move/place_robot'
+require 'Move/move_robot'
+require 'Move/report'
+require 'Move/help'
 
 class RobotSimulator
 
   def initialize()
-    @robot = Robot.new()
-    @table = Table.new()
+    @controller = Controller.new
+    right       = TurnRobotRight.new controller: @controller
+    left        = TurnRobotLeft.new  controller: @controller
+    place       = PlaceRobot.new     controller: @controller
+    move        = MoveRobot.new      controller: @controller
+    report      = Report.new         controller: @controller
+    help        = Help.new           controller: @controller
   end
 
   def execute(line)
-    command, args = parse_line(line)
-
-    return unless @robot.heading || command =~ /^(?:place|help)$/
-
-    case command
-
-      when 'right'
-        @robot.rotate_right()
-
-      when 'left'
-        @robot.rotate_left()
-
-      when 'move'
-        case @robot.heading
-          when :north
-            @table.y = @table.y+1
-          when :south
-            @table.y = @table.y-1
-          when :east
-            @table.x = @table.x+1
-          when :west
-            @table.x = @table.x-1
-          end
-
-      when 'report'
-        x, y, heading = @table.x, @table.y, @robot.heading
-        return "#{x},#{y},#{heading}".upcase
-
-      when 'place'
-        x, y, heading = args.split(/,/)
-        return unless @robot.valid_heading(heading.to_sym)
-        res = @table.place(@robot, x.to_i, y.to_i)
-        @robot.heading = heading.to_sym if res
-        return res
-
-      when 'help'
-        return <<EOS
-PLACE X,Y,[NORTH|EAST|SOUTH|WEST]
-MOVE
-LEFT
-RIGHT
-REPORT
-EXIT
-EOS
-    end
+    @controller.execute line
   end
 
   private
-
-  def parse_line(line)
-    command, args = line.downcase.match(/^(\w+)(?:\s+(.*))?$/).captures
-  end
 
   if __FILE__ == $0
     simulator = RobotSimulator.new()
