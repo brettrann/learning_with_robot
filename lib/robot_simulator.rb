@@ -14,12 +14,9 @@ class RobotSimulator
 
   def initialize()
     @controller = Controller.new
-    right       = TurnRobotRight.new controller: @controller
-    left        = TurnRobotLeft.new  controller: @controller
-    place       = PlaceRobot.new     controller: @controller
-    move        = MoveRobot.new      controller: @controller
-    report      = Report.new         controller: @controller
-    help        = Help.new           controller: @controller
+    [:TurnRobotRight, :TurnRobotLeft, :PlaceRobot, :MoveRobot, :Report, :Help].each do
+      |move| m.new controller: @controller
+    end
   end
 
   def execute(line)
