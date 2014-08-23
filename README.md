@@ -7,7 +7,7 @@ Basic Robot Simulator code exercise
 for CLI run ruby -Ilib lib/robot_simulator.rb
 
 ## Info
-Descrip8on:
+Description:
 
 * The  applica8on  is  a  simulation  of  a  toy  robot  moving  on  a  square  tabletop,  of  
 dimensions  5  units  x  5  units.
