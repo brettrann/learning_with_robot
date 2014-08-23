@@ -20,8 +20,4 @@ class MoveRobot < Move
         @table.x = @table.x-1
       end
   end
-
-  def regexp()
-    return Regexp
-  end
 end

@@ -15,7 +15,4 @@ EXIT
 EOS
   end
 
-  def regexp()
-    return Regexp
-  end
 end
