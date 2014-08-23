@@ -13,7 +13,7 @@ class Move
   def execute(command)
   end
 
-  def regexp=()
+  def regexp()
     return //
   end
 
