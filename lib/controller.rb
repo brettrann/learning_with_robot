@@ -21,9 +21,7 @@ class Controller
     return unless move.is_a?(Move)
     move.robot = @robot
     move.table = @table
-    if move.is_a?(TurnRobotLeft)
-    end
-    @moves[move.regexp] = move
+    @moves[move.regexp] = move if move.regexp.is_a?(Regexp)
   end
 
 end
