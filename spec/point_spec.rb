@@ -2,13 +2,13 @@ require 'Point'
 
 describe 'Point object' do
 
-    it 'tests instantiate coordiantes' do
+    it 'tests instantiate point' do
       point = Point.new 0,0
       expect([point.x, point.y]).to eq([0,0])
       point = Point.new 8,-5
       expect([point.x, point.y]).to eq([8,-5])
     end
-    it 'tests in_bounds' do
+    it 'tests method inside for boundary check' do
       bound_low = Point.new 0,0
       bound_low_negative = Point.new -10,-10
       bound_high = Point.new 10,10
