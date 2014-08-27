@@ -1,5 +1,4 @@
 require 'Command'
-require 'Robot'
 
 class Command::PlaceRobot < Command
 
