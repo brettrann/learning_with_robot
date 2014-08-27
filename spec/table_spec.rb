@@ -1,46 +1,32 @@
 require 'spec_helper'
-require 'Robot'
 require 'Table'
+require 'Point'
 
 describe "Table object" do
 
-  @robot
-  @table
-  before :each do
-    @robot = Robot.new()
-    @table = Table.new()
+  it 'when initializing table with default bounds' do
+    expect(table = Table.new).to be_a Table
+    expect(table.bottom_left_point).to be_a Point
+    expect([table.bottom_left_point.x, table.bottom_left_point.y]).to eq [0,0]
+    expect([table.top_right_point.x, table.top_right_point.y]).to eq [4,4]
+    expect(table.contains? Point.new(0,0)).to be_true
+    expect(table.contains? Point.new(4,4)).to be_true
+    expect(table.contains? Point.new(1,3)).to be_true
+    expect(table.contains? Point.new(5,5)).to be_false
+    expect(table.contains? Point.new(-1,5)).to be_false
+    expect(table.contains? Point.new(-1,-1)).to be_false
   end
 
-  it 'when placing the robot' do
-    expect(@table.place(@robot, 0, 0)).to equal @robot
-    expect(@table.x                  ).to equal 0
-    expect(@table.y                  ).to equal 0
-    expect(@table.place(@robot, 4, 4)).to equal @robot
-    expect(@table.x                  ).to equal 4
-    expect(@table.y                  ).to equal 4
-    expect(@table.place(@robot, 9, 9)).to equal nil
-    expect(@table.place(@robot, 5, 0)).to equal nil
-    expect(@table.place(@robot, 0, 5)).to equal nil
-
-    @table = Table.new(100,100)
-    expect(@table.place(@robot,  99,  99)).to equal @robot
-    expect(@table.x                      ).to equal 99
-    expect(@table.y                      ).to equal 99
-    expect(@table.place(@robot, 100,  99)).to equal nil
-    expect(@table.place(@robot, 100, 100)).to equal nil
-  end
-
-  it 'when setting x or y' do
-    expect(@table.place(@robot, 0, 0)).to equal @robot
-    expect(@table.x                  ).to equal 0
-    expect(@table.y                  ).to equal 0
-    expect(@table.x = 2              ).to equal 2
-    expect(@table.x                  ).to equal 2
-    expect(@table.x = 5              ).to equal 5
-    expect(@table.x                  ).to equal 2
-    expect(@table.y = 2              ).to equal 2
-    expect(@table.y                  ).to equal 2
-    expect(@table.y = 5              ).to equal 5
-    expect(@table.y                  ).to equal 2
+  it 'when initializing table with explicit bounds' do
+    expect(table = Table.new(100,100)).to be_a Table
+    expect(table.bottom_left_point).to be_a Point
+    expect([table.bottom_left_point.x, table.bottom_left_point.y]).to eq [0,0]
+    expect([table.top_right_point.x, table.top_right_point.y]).to eq [99,99]
+    expect(table.contains? Point.new(0,0)).to be_true
+    expect(table.contains? Point.new(99,99)).to be_true
+    expect(table.contains? Point.new(1,98)).to be_true
+    expect(table.contains? Point.new(100,100)).to be_false
+    expect(table.contains? Point.new(-1,-1)).to be_false
+    expect(table.contains? Point.new(-1,100)).to be_false
   end
 end

@@ -1,11 +1,12 @@
-require 'Robot'
+require 'Command'
 
-class Help < Move
+class Command::Help < Command
 
   Regexp = /^HELP$/i
 
   def execute(command)
     return <<EOS
+USAGE:
 PLACE X,Y,[NORTH|EAST|SOUTH|WEST]
 MOVE
 LEFT
@@ -14,5 +15,4 @@ REPORT
 EXIT
 EOS
   end
-
 end
