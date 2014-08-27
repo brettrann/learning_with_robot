@@ -32,7 +32,7 @@ class RobotSimulator
       next if line.length == 0
       break if line =~ /^exit/
       res = simulator.execute line
-      puts res if res =~ /(?:^\d+,\d+,\w+|USAGE:)$/
+      puts res if res =~ /^(?:\d+,\d+,\w+|USAGE:)$/
     end
   end
 end

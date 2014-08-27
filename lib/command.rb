@@ -20,6 +20,6 @@ class Command
   end
 
   def is_active?
-    @robot.heading
+    @robot.heading ? true : false
   end
 end
