@@ -12,10 +12,13 @@ describe 'Point object' do
       bound_low = Point.new 0,0
       bound_low_negative = Point.new -10,-10
       bound_high = Point.new 10,10
-      point = Point.new 5,5
-      expect(point.inside(bound_low, bound_high)).to equal true
-      expect(point.inside(bound_high, bound_low)).to equal true
-      expect(point.inside(bound_low_negative, bound_high)).to equal true
-      expect(point.inside(bound_high, bound_low_negative)).to equal true
+      point_in = Point.new 5,5
+      point_out_1 = Point.new 100,100
+      point_out_2 = Point.new -100,-100
+      expect(point_in.inside?(bound_low, bound_high)).to equal true
+      expect(point_in.inside?(bound_high, bound_low)).to equal true
+      expect(point_in.inside?(bound_low_negative, bound_high)).to equal true
+      expect(point_in.inside?(bound_high, bound_low_negative)).to equal true
+      expect(point_out_1.inside? bound_high, bound_low).to equal false
     end
 end

@@ -1,32 +1,17 @@
-require 'Robot'
+require 'Point'
 class Table
 
-  attr_reader :x, :y, :robot
+  attr_reader :bottom_left_point, :top_right_point
 
   def initialize(max_x = 5, max_y = 5)
-    @max_x, @max_y   = max_x, max_y
-    @x = @y = @robot = nil
+    @bottom_left_point = Point.new(0, 0)
+    @top_right_point = Point.new(max_x-1, max_y-1)
   end
 
-  def place(robot, x, y)
-    if robot.is_a?(Robot) && in_range(x, y)
-      @x, @y = x, y
-      # XXX using this as success return value. bad, need better.
-      @robot = robot
-    end
-  end
-
-  # XXX these are returning x even when the if fails.
-  # so checking for that in test,but it is strange.
-  def x=(x)
-    @x = x if in_range(x, @y)
-  end
-
-  def y=(y)
-    @y = y  if in_range(@x, y)
-  end
-
-  def in_range(x, y)
-    x >= 0 && x < @max_x && y >= 0 && y < @max_x
+  def contains?(point)
+    # in bigger 2d libraries it would generally be in a 2d bound object
+    # which this would extend, but in that absence it is living in Point
+    # so putting this as a wrapper
+    point.inside? @bottom_left_point, @top_right_point
   end
 end

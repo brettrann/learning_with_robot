@@ -6,19 +6,18 @@ class Controller
   attr_accessor :table, :robot
 
   def initialize(robot: Robot.new, table: Table.new)
-    @robot, @table, @moves = robot, table, {}
+    @robot, @table, @commands = robot, table, {}
   end
 
   def execute(command)
-    for regexp in @moves.keys
-      return @moves[regexp].execute(command) if command.match(regexp)
+    for regexp in @commands.keys
+      return @commands[regexp].execute command if command.match regexp
     end
-    return nil
+    nil
   end
 
-  def register_move(move)
-    move.robot, move.table = @robot, @table
-    @moves[move.class::Regexp] = move if move.class::Regexp.is_a?(Regexp)
+  def register_command(command)
+    command.robot, command.table = @robot, @table
+    @commands[command.class::Regexp] = command if command.class::Regexp.is_a? Regexp
   end
-
 end
