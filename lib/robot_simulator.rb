@@ -15,7 +15,8 @@ class RobotSimulator
   def initialize()
     @controller = Controller.new
     [:TurnRobotRight, :TurnRobotLeft, :PlaceRobot, :MoveRobot, :Report, :Help].each do |command|
-      Object.const_get(command).new controller: @controller
+      Command.const_get(:Help).new controller: @controller
+      break
     end
   end
 
