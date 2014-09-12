@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
-# Specify your gem's dependencies in robot_simulator.gemspec
-gemspec
 group :development, :test do
-  gem 'guard-rspec', '2.5.0'
-  gem 'rspec-nc'
+  gem 'rspec',       '3.1.0'
+  gem 'guard-rspec', '4.3.1'
+  
+  case RUBY_PLATFORM
+  when /darwin13/
+    gem 'rspec-nc', '0.2.0' # OS X mavericks notifications
+  end
 end

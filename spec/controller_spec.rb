@@ -37,7 +37,7 @@ describe 'Controller object' do
   end
 
   it 'place robot on table' do
-    expect(@controller.execute('PLACE 2,2,NORTH')).to be_true
+    expect(@controller.execute('PLACE 2,2,NORTH')).to be_truthy
     expect(@controller.execute('REPORT'         )).to eq('2,2,NORTH')
   end
 
@@ -52,25 +52,25 @@ describe 'Controller object' do
   end
 
   it 'rotate robot' do
-    expect(@controller.execute('PLACE 2,2,NORTH')).to be_true
+    expect(@controller.execute('PLACE 2,2,NORTH')).to be_truthy
     expect(@controller.execute('REPORT'         )).to eq('2,2,NORTH')
     expect(@controller.execute('LEFT')           ).to equal(:west)
     expect(@controller.execute('RIGHT')          ).to equal(:north)
   end
 
   it 'move robot' do
-    expect(@controller.execute('PLACE 2,2,NORTH')).to be_true
+    expect(@controller.execute('PLACE 2,2,NORTH')).to be_truthy
     expect(@controller.execute('REPORT'         )).to eq('2,2,NORTH')
     expect(@controller.execute('MOVE'           )).to be_a Point
     expect(@controller.execute('REPORT'         )).to eq('2,3,NORTH')
   end
 
   it 'check table bounds' do
-    expect(@controller.execute('PLACE 0,0,NORTH')).to be_true
+    expect(@controller.execute('PLACE 0,0,NORTH')).to be_truthy
     expect(@controller.execute('REPORT'         )).to eq('0,0,NORTH')
     expect(@controller.execute('LEFT'           )).to equal :west
     # boundary move
-    expect(@controller.execute('MOVE'           )).to be_false
+    expect(@controller.execute('MOVE'           )).to be_falsey
     expect(@controller.execute('REPORT'         )).to eq('0,0,WEST')
     expect(@controller.execute('RIGHT'          )).to equal :north
     for i in 1..4 do
@@ -78,7 +78,7 @@ describe 'Controller object' do
     end
     # boundary move
     expect(@controller.execute('REPORT'         )).to eq('0,4,NORTH')
-    expect(@controller.execute('MOVE'           )).to be_false
+    expect(@controller.execute('MOVE'           )).to be_falsey
     expect(@controller.execute('REPORT'         )).to eq('0,4,NORTH')
 
     expect(@controller.execute('RIGHT'          )).to equal :east
@@ -87,7 +87,7 @@ describe 'Controller object' do
     end
     #boundary move
     expect(@controller.execute('REPORT'         )).to eq('4,4,EAST')
-    expect(@controller.execute('MOVE'           )).to be_false
+    expect(@controller.execute('MOVE'           )).to be_falsey
     expect(@controller.execute('REPORT'         )).to eq('4,4,EAST')
 
     expect(@controller.execute('RIGHT'          )).to equal :south
@@ -96,7 +96,7 @@ describe 'Controller object' do
     end
     #boundary move
     expect(@controller.execute('REPORT'         )).to eq('4,0,SOUTH')
-    expect(@controller.execute('MOVE'           )).to be_false
+    expect(@controller.execute('MOVE'           )).to be_falsey
     expect(@controller.execute('REPORT'         )).to eq('4,0,SOUTH')
   end
 end
