@@ -1,4 +1,4 @@
-require 'controller.rb'
+require 'controller'
 require 'Command'
 require 'Command/turn_robot_left'
 require 'Command/turn_robot_right'
