@@ -1,5 +1,6 @@
 require 'robot'
 require 'table'
+require 'command'
 
 class Controller
 
