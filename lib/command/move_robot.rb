@@ -1,4 +1,4 @@
-require 'Command'
+require 'command'
 
 class Command::MoveRobot < Command
 

@@ -1,4 +1,4 @@
-require 'Point'
+require 'point'
 class Table
 
   attr_reader :bottom_left_point, :top_right_point

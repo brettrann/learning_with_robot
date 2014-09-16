@@ -1,5 +1,5 @@
-require 'Robot'
-require 'Table'
+require 'robot'
+require 'table'
 
 class Controller
 

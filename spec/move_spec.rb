@@ -1,7 +1,7 @@
-require 'Command'
-require 'Command/turn_robot_left'
-require 'Table'
-require 'Robot'
+require 'command'
+require 'command/turn_robot_left'
+require 'table'
+require 'robot'
 
 describe 'Command object' do
 

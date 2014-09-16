@@ -1,6 +1,6 @@
 require 'spec_helper'
-require 'Table'
-require 'Point'
+require 'table'
+require 'point'
 
 describe "Table object" do
 

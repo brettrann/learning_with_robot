@@ -1,4 +1,4 @@
-require 'Point'
+require 'point'
 
 class Robot
   attr_accessor :point

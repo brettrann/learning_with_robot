@@ -1,6 +1,6 @@
-require 'Table'
-require 'Robot'
-require 'Controller'
+require 'table'
+require 'robot'
+require 'controller'
 
 class Command
 

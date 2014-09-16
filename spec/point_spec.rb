@@ -1,4 +1,4 @@
-require 'Point'
+require 'point'
 
 describe 'Point object' do
 

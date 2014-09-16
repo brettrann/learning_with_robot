@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'Robot'
+require 'robot'
 
 describe "Robot object" do
 

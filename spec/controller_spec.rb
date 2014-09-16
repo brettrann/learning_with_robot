@@ -1,13 +1,13 @@
 require 'controller'
-require 'Command'
-require 'Command/turn_robot_left'
-require 'Command/turn_robot_right'
-require 'Command/place_robot'
-require 'Command/move_robot'
-require 'Command/report'
-require 'Command/help'
-require 'Robot'
-require 'Table'
+require 'command'
+require 'command/turn_robot_left'
+require 'command/turn_robot_right'
+require 'command/place_robot'
+require 'command/move_robot'
+require 'command/report'
+require 'command/help'
+require 'robot'
+require 'table'
 
 describe 'Controller object' do
 
