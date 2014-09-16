@@ -1,2 +1,4 @@
 language: ruby
+
+# only available for private repositories. boo!
 cache: bundler
