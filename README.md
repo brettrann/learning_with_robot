@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/brann/learning_with_robot.svg?branch=master)](https://travis-ci.org/brann/learning_with_robot)
+
 RobotSimulator
 ==============
 
@@ -13,7 +15,6 @@ CLI:
 Test:
 
     rspec
-
 
 Design Decisions
 --------------
